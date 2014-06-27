@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30324.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libdipc", "libdipc.csproj", "{11B56557-7083-4C92-BF31-9EE0E4EE896F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libdipc.Tests", "libdipc.Tests\libdipc.Tests.csproj", "{851EDE41-5191-46CE-A0FC-893873AE2099}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{11B56557-7083-4C92-BF31-9EE0E4EE896F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11B56557-7083-4C92-BF31-9EE0E4EE896F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11B56557-7083-4C92-BF31-9EE0E4EE896F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11B56557-7083-4C92-BF31-9EE0E4EE896F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{851EDE41-5191-46CE-A0FC-893873AE2099}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{851EDE41-5191-46CE-A0FC-893873AE2099}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{851EDE41-5191-46CE-A0FC-893873AE2099}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{851EDE41-5191-46CE-A0FC-893873AE2099}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
