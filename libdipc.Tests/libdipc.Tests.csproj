@@ -67,6 +67,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="LocalDipTerminalTests.cs" />
+    <Compile Include="LocalNetworkTest.cs" />
+    <Compile Include="LocalRouterTests.cs" />
+    <Compile Include="LocalRoutingIT.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

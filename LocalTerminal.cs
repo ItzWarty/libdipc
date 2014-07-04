@@ -9,50 +9,36 @@ using System.Threading.Tasks;
 
 namespace Dargon.Ipc
 {
-   public class LocalTerminal : IDipNode
+   public class LocalTerminal : DipNodeBase
    {
-      private readonly ITerminalConfiguration m_configuration;
-      private readonly Dictionary<Guid, IDipNode> m_peersFromGuids = new Dictionary<Guid,IDipNode>();
-      private readonly Guid m_guid;
-      private readonly ConcurrentQueue<IDipMessage> m_messageQueue = new ConcurrentQueue<IDipMessage>(); 
-
-      public LocalTerminal(ITerminalConfiguration config)
+      public LocalTerminal(ILocalTerminalConfiguration config)
+         : base(DipRole.LocalTerminal, config.Guid != Guid.Empty ? config.Guid : Guid.NewGuid(), config.NodeIdentifier)
       {
-         m_configuration = config;
-         m_guid = Guid.NewGuid();
       }
 
-      public async Task<IPeeringResult> Peer(IDipNode node)
+      protected override IPeeringResult Peer(IDipNode node)
       {
-         if (node == this)
-            return new PeeringResult(PeeringState.Disconnected, null, new Exception("node attempted connection to self"));
+         if (node.Role.HasFlag(DipRole.Remote))
+            PeeringFailure(node, new InvalidOperationException("Local terminals cannot peer with remote nodes"));
 
-         if (m_peersFromGuids.ContainsKey(node.Guid))
-            return new PeeringResult(PeeringState.Connected, null, new Exception("already connected to node"));
-
-         var result = await node.Peer(this);
-         if (result.PeeringState == PeeringState.Connected)
-         {
-            m_peersFromGuids.Add(node.Guid, node);
-         }
+         var result = node.PeerAsync(this).Result;
          return new PeeringResult(result.PeeringState, node, result.Exception);
       }
 
-      public void SendMessage<T>(IDipNode recipient, IDipMessage<T> message) where T : ISerializable
+      public override void ReceiveV1<T>(IEnvelopeV1<T> envelope)
       {
-         if (!m_peersFromGuids.ContainsKey(recipient.Guid))
-            throw new InvalidOperationException("attempted to send message to non-connected peer");
-
-         recipient.ReceiveMessage(this, message);
+         if (envelope.RecipientGuid != this.Guid)
+         {
+#if DEBUG
+            throw new InvalidOperationException("Local Terminals shouldn't relay messages!");
+#else
+            RouteEnvelope(envelope);
+#endif
+         }
+         else
+         {
+            EnqueueMessage(envelope.Message);  
+         }
       }
-
-      public void ReceiveMessage<T>(IDipNode sender, IDipMessage<T> message) where T : ISerializable
-      {
-         m_messageQueue.Enqueue(message);
-      }
-
-      public Guid Guid { get { return m_guid; } }
-      public string Identifier { get { return m_configuration.NodeIdentifier; }}
-      public IReadOnlyCollection<IDipNode> Peers { get { return m_peersFromGuids.Values.ToList(); } }
    }
 }

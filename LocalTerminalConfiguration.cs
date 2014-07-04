@@ -6,13 +6,9 @@ using System.Threading.Tasks;
 
 namespace Dargon.Ipc
 {
-   public interface ITerminalConfiguration
-   {
-      string NodeIdentifier { get; set; }
-   }
-
-   public class TerminalConfiguration : ITerminalConfiguration
+   public class LocalTerminalConfiguration : ILocalTerminalConfiguration
    {
       public string NodeIdentifier { get; set; }
+      public Guid Guid { get; set; }
    }
 }

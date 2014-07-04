@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="protobuf-net">
+      <HintPath>packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,13 +42,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDipMessage.cs" />
+    <Compile Include="DipIdentifier.cs" />
+    <Compile Include="DipNodeBase.cs" />
+    <Compile Include="DipRole.cs" />
+    <Compile Include="EnvelopeExtensions.cs" />
+    <Compile Include="EnvelopeFactory.cs" />
+    <Compile Include="EnvelopeV1.cs" />
+    <Compile Include="IMessage.cs" />
+    <Compile Include="ILocalRouterConfiguration.cs" />
+    <Compile Include="ILocalTerminalConfiguration.cs" />
+    <Compile Include="INetwork.cs" />
+    <Compile Include="LocalNetwork.cs" />
+    <Compile Include="LocalRouterConfiguration.cs" />
     <Compile Include="PeeringResult.cs" />
     <Compile Include="PeeringState.cs" />
-    <Compile Include="TerminalConfiguration.cs" />
+    <Compile Include="LocalRouter.cs" />
+    <Compile Include="LocalTerminalConfiguration.cs" />
     <Compile Include="IDipNode.cs" />
     <Compile Include="LocalTerminal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libwarty\ItzWarty.csproj">
+      <Project>{097b6b08-4034-408a-b3c0-a12e8f9e8893}</Project>
+      <Name>ItzWarty</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Message\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
