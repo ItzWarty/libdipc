@@ -8,10 +8,10 @@ namespace Dargon.Ipc
    public interface IEnvelopeV1
    {
       [ProtoMember(1)]
-      Guid SenderGuid { get; }
+      IDipIdentifier SenderId { get; }
 
       [ProtoMember(2)]
-      Guid RecipientGuid { get; }
+      IDipIdentifier RecipientId { get; }
 
       [ProtoMember(3)]
       Guid[] HopsToDestination { get; }
@@ -37,10 +37,10 @@ namespace Dargon.Ipc
    public class EnvelopeV1<T> : IEnvelopeV1<T>
    {
       [ProtoMember(1)]
-      public Guid SenderGuid { get; private set; }
+      public IDipIdentifier SenderId { get; private set; }
 
       [ProtoMember(2)]
-      public Guid RecipientGuid { get; private set; }
+      public IDipIdentifier RecipientId { get; private set; }
 
       [ProtoMember(3)]
       public Guid[] HopsToDestination { get; private set; }
@@ -55,10 +55,10 @@ namespace Dargon.Ipc
       public IMessage<T> Message { get; private set; }
       IMessage IEnvelopeV1.Message { get { return Message; } }
 
-      public EnvelopeV1(Guid senderGuid, Guid recipientGuid, Guid[] hopsToDestintaion, DateTime timeSent, DateTime timeReceived, IMessage<T> message)
+      public EnvelopeV1(IDipIdentifier senderGuid, IDipIdentifier recipientGuid, Guid[] hopsToDestintaion, DateTime timeSent, DateTime timeReceived, IMessage<T> message)
       {
-         this.SenderGuid = senderGuid;
-         this.RecipientGuid = recipientGuid;
+         this.SenderId = senderGuid;
+         this.RecipientId = recipientGuid;
          this.HopsToDestination = hopsToDestintaion;
          this.TimeSent = timeSent;
          this.TimeReceived = timeReceived;

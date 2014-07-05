@@ -51,8 +51,6 @@
     <Compile Include="IMessage.cs" />
     <Compile Include="ILocalRouterConfiguration.cs" />
     <Compile Include="ILocalTerminalConfiguration.cs" />
-    <Compile Include="INetwork.cs" />
-    <Compile Include="LocalNetwork.cs" />
     <Compile Include="LocalRouterConfiguration.cs" />
     <Compile Include="PeeringResult.cs" />
     <Compile Include="PeeringState.cs" />

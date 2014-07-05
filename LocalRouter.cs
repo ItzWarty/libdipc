@@ -20,15 +20,19 @@ namespace Dargon.Ipc
          m_config = config;
       }
 
-      protected override IPeeringResult Peer(IDipNode node)
+      protected override IPeeringResult PeerParent(IDipNode parent)
       {
-         if (node.Role == DipRole.RemoteTerminal)
-            return PeeringFailure(node, new InvalidOperationException("Local nodes cannot directly peer with remote terminals"));
+         var result = parent.PeerChildAsync(this).Result;
+         return new PeeringResult(result.PeeringState, parent, result.Exception);
+      }
 
-         if (node.Role == DipRole.LocalTerminal)
-            return PeeringSuccess(node);
+      protected override IPeeringResult PeerChild(IDipNode child)
+      {
+         if (child.Role == DipRole.RemoteTerminal)
+            return PeeringFailure(child, new InvalidOperationException("Local nodes cannot directly peer with remote terminals"));
 
-         throw new NotImplementedException("Not implemented: peering of " + Role + " and " + node.Role);
+         var result = child.PeerParentAsync(this).Result;
+         return new PeeringResult(result.PeeringState, child, result.Exception);
       }
 
       public override void SendV1<T>(IEnvelopeV1<T> envelope)

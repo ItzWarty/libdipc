@@ -11,11 +11,12 @@ namespace Dargon.Ipc
    {
       DipRole Role { get; }
       Guid Guid { get; }
-      string Identifier { get; }
+      IDipIdentifier Identifier { get; }
       IReadOnlyCollection<IDipNode> Peers { get; }
-      INetwork ParentNetwork { get; }
+      IDipNode Parent { get; }
 
-      Task<IPeeringResult> PeerAsync(IDipNode node);
+      Task<IPeeringResult> PeerParentAsync(IDipNode parent);
+      Task<IPeeringResult> PeerChildAsync(IDipNode child);
       void Send<T>(IDipNode recipient, IMessage<T> message);
       void Send<T>(IEnvelopeV1<T> envelope);
       void SendV1<T>(IEnvelopeV1<T> envelope);

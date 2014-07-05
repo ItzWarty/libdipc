@@ -16,18 +16,23 @@ namespace Dargon.Ipc
       {
       }
 
-      protected override IPeeringResult Peer(IDipNode node)
+      protected override IPeeringResult PeerParent(IDipNode parent)
       {
-         if (node.Role.HasFlag(DipRole.Remote))
-            PeeringFailure(node, new InvalidOperationException("Local terminals cannot peer with remote nodes"));
+         if (parent.Role.HasFlag(DipRole.Remote))
+            PeeringFailure(parent, new InvalidOperationException("Local terminals cannot peer with remote nodes"));
 
-         var result = node.PeerAsync(this).Result;
-         return new PeeringResult(result.PeeringState, node, result.Exception);
+         var result = parent.PeerChildAsync(this).Result;
+         return new PeeringResult(result.PeeringState, parent, result.Exception);
+      }
+
+      protected override IPeeringResult PeerChild(IDipNode child)
+      {
+         return PeeringFailure(child, new InvalidOperationException("Terminals cannot have child nodes!"));
       }
 
       public override void ReceiveV1<T>(IEnvelopeV1<T> envelope)
       {
-         if (envelope.RecipientGuid != this.Guid)
+         if (envelope.RecipientId.Guid != this.Guid)
          {
 #if DEBUG
             throw new InvalidOperationException("Local Terminals shouldn't relay messages!");

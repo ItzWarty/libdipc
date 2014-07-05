@@ -25,7 +25,12 @@ namespace Dargon.Ipc
 
       public static IEnvelopeV1<TMessageContent> NewDirectEnvelopeFromMessageV1<TMessageContent>(IDipNode sender, IDipNode receiver, IMessage<TMessageContent> message)
       {
-         return new EnvelopeV1<TMessageContent>(sender.Guid, receiver.Guid, new Guid[] { sender.Guid, receiver.Guid }, DateTime.Now, DateTime.Now, message);
+         return new EnvelopeV1<TMessageContent>(sender.Identifier, receiver.Identifier, new Guid[] { sender.Guid, receiver.Guid }, DateTime.Now, DateTime.Now, message);
+      }
+
+      public static IEnvelopeV1<TMessageContent> NewUnroutedEnvelopeToRecipient<TMessageContent>(IDipNode sender, IDipNode recipient, IMessage<TMessageContent> message)
+      {
+         return new EnvelopeV1<TMessageContent>(sender.Identifier, recipient.Identifier, null, DateTime.Now, DateTime.Now, message);
       }
    }
 }

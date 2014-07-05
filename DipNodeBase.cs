@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ItzWarty.Collections;
 
@@ -13,48 +16,93 @@ namespace Dargon.Ipc
    public abstract class DipNodeBase : IDipNode
    {
       private readonly DipRole m_role;
-      private readonly Guid m_guid;
-      private readonly string m_identifier;
-      private readonly INetwork m_parentNetwork;
-      
-      private readonly ConcurrentSet<IDipNode> m_peeringNodes = new ConcurrentSet<IDipNode>();
-      private readonly ConcurrentSet<IDipNode> m_peers = new ConcurrentSet<IDipNode>();
+      private readonly DipIdentifier m_identifier;
+      private readonly string m_name;
+
+      private IDipNode m_parentNode;
+      private IDipNode m_peeringParent;
+      private readonly Semaphore m_parentNodeSemaphore = new Semaphore(1, 1);
+      private readonly ConcurrentSet<IDipNode> m_peeringChildren = new ConcurrentSet<IDipNode>();
+      private readonly ConcurrentSet<IDipNode> m_children = new ConcurrentSet<IDipNode>();
       private readonly ConcurrentDictionary<Guid, IDipNode> m_peersByGuid = new ConcurrentDictionary<Guid, IDipNode>();
       private readonly BlockingCollection<IMessage> m_messageQueue = new BlockingCollection<IMessage>(new ConcurrentQueue<IMessage>());
-
-      protected DipNodeBase(DipRole role, Guid guid, string identifier, INetwork parentNetwork)
+      
+      protected DipNodeBase(DipRole role, Guid guid, string name)
       {
          m_role = role;
-         m_guid = guid;
-         m_identifier = identifier;
-         m_parentNetwork = parentNetwork;
+         m_identifier = new DipIdentifier(guid);
+         m_name = name;
       }
 
       public DipRole Role { get { return m_role; } }
-      public Guid Guid { get { return m_guid; } }
-      public string Identifier { get { return m_identifier; } }
-      public IReadOnlyCollection<IDipNode> Peers { get { return m_peers; } }
-      public INetwork ParentNetwork { get { return m_parentNetwork; } }
+      public Guid Guid { get { return m_identifier.Guid; } }
+      public IDipIdentifier Identifier { get { return m_identifier; } }
+      public IReadOnlyCollection<IDipNode> Peers { get { return m_peersByGuid.Values.ToList(); } } // TODO: EW
+      public IDipNode Parent { get { return m_parentNode; } }
 
-      public async Task<IPeeringResult> PeerAsync(IDipNode node)
+      public async Task<IPeeringResult> PeerParentAsync(IDipNode parent)
       {
-         if (m_peeringNodes.Contains(node) || m_peers.Contains(node))
-            return PeeringSuccess(node);
-         else
+         if (parent == null)
+            throw new ArgumentNullException("parent");
+
+         if (m_peeringParent == parent)
          {
-            m_peeringNodes.TryAdd(node);
-            var result = this.Peer(node);
-            m_peeringNodes.TryRemove(node);
+            m_peeringParent = null;
+            return PeeringSuccess(parent);
+         }
+         try
+         {
+            this.m_parentNodeSemaphore.WaitOne();
+            m_peeringParent = parent;
+
+            if (m_parentNode == parent)
+               return PeeringSuccess(parent);
+
+            if (m_children.Contains(parent))
+               throw new InvalidOperationException("Cannot create circular child/parent dependency");
+
+            var result = PeerParent(parent);
             if (result.PeeringState == PeeringState.Connected)
             {
-               m_peers.TryAdd(node);
-               m_peersByGuid.TryAdd(node.Guid, node);
+               m_parentNode = parent;
+               m_peersByGuid.TryAdd(parent.Guid, parent);
+               m_identifier.Parent = parent.Identifier;
+            }
+            return result;
+         }
+         finally
+         {
+            this.m_parentNodeSemaphore.Release();
+         }
+      }
+      
+      protected abstract IPeeringResult PeerParent(IDipNode parent);
+
+      public async Task<IPeeringResult> PeerChildAsync(IDipNode child)
+      {
+         if (m_parentNode == child)
+            throw new InvalidOperationException("Cannot create circular child/parent dependency");
+
+         if (m_peeringChildren.Contains(child) || m_children.Contains(child))
+         {
+            m_peeringChildren.TryRemove(child);
+            return PeeringSuccess(child);
+         }
+         else
+         {
+            m_peeringChildren.TryAdd(child);
+            var result = this.PeerChild(child);
+            m_peeringChildren.TryRemove(child);
+            if (result.PeeringState == PeeringState.Connected)
+            {
+               m_children.TryAdd(child);
+               m_peersByGuid.TryAdd(child.Guid, child);
             }
             return result;
          }
       }
 
-      protected abstract IPeeringResult Peer(IDipNode node);
+      protected abstract IPeeringResult PeerChild(IDipNode child);
 
       protected bool HasPeer(IDipNode node) { return this.HasPeer(node.Guid); }
       protected bool HasPeer(Guid guid) { return m_peersByGuid.ContainsKey(guid); }
@@ -71,14 +119,14 @@ namespace Dargon.Ipc
 
       public void Send<T>(IDipNode recipient, IMessage<T> message)
       {
-         if (this.m_peers.Contains(recipient))
+         if (this.m_peersByGuid.ContainsKey(recipient.Guid))
          {
             var envelope = EnvelopeFactory.NewDirectEnvelopeFromMessage(this, recipient, message);
             Send(envelope);
          }
          else
          {
-            throw new NotImplementedException("Routing messages");
+            RerouteEnvelope(EnvelopeFactory.NewUnroutedEnvelopeToRecipient(this, recipient, message));
          }
       }
 
@@ -112,11 +160,8 @@ namespace Dargon.Ipc
 
       protected void RouteEnvelope<T>(IEnvelopeV1<T> envelope)
       {
-         Guid hopGuid = envelope.HopsToDestination[0]; // should be router guid
-         Debug.Assert(hopGuid == this.Guid);
-
          IDipNode nextHop;
-         if (envelope.RecipientGuid == this.Guid)
+         if (envelope.RecipientId.Guid == this.Identifier.Guid)
          {
             m_messageQueue.Add(envelope.Message);
          }
@@ -132,6 +177,36 @@ namespace Dargon.Ipc
 
       private void RerouteEnvelope<T>(IEnvelopeV1<T> envelope)
       {
+         var thisCrumbs = this.Identifier.Breadcrumbs;
+         var envelopeCrumbs = envelope.RecipientId.Breadcrumbs;
+         
+         // Find common ancestor between breadcrumbms
+         int thisIndexResult = -1;
+         int recipientIndexResult = -1;
+         for (var thisIndex = thisCrumbs.Length - 1; thisIndex >= 0; thisIndex--)
+         {
+            for (var recipientIndex = 0; recipientIndex < envelopeCrumbs.Length; recipientIndex++)
+            {
+               if (thisCrumbs[thisIndex] == envelopeCrumbs[recipientIndex])
+               {
+                  thisIndexResult = thisIndex;
+                  recipientIndexResult = recipientIndex;
+                  goto loop_exit;
+               }
+            }
+         }
+
+      loop_exit:
+         if (thisIndexResult == -1 || recipientIndexResult == -1)
+            return; // drop packet
+
+         var newRoute = new Guid[(thisCrumbs.Length - thisIndexResult - 1) + (envelopeCrumbs.Length - recipientIndexResult - 1) + 1];
+         var newRouteIndex = 0;
+         for (var i = thisCrumbs.Length - 1; i >= thisIndexResult; i--)
+            newRoute[newRouteIndex++] = thisCrumbs[i];
+         for (var i = recipientIndexResult + 1; i < envelopeCrumbs.Length; i++)
+            newRoute[newRouteIndex++] = envelopeCrumbs[i];
+         RouteEnvelope(envelope.GetReroutedEnvelope(newRoute));
       }
    }
 }
