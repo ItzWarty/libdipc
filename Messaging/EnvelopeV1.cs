@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using ProtoBuf;
 
-namespace Dargon.Ipc
+namespace Dargon.Ipc.Messaging
 {
    [ProtoContract]
    public interface IEnvelopeV1

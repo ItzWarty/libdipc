@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dargon.Ipc;
+using Dargon.Ipc.Messaging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace libdipc.Tests

@@ -9,6 +9,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Dargon.Ipc.Messaging;
 using ItzWarty.Collections;
 
 namespace Dargon.Ipc

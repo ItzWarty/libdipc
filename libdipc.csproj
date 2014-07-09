@@ -45,13 +45,21 @@
     <Compile Include="DipIdentifier.cs" />
     <Compile Include="DipNodeBase.cs" />
     <Compile Include="DipRole.cs" />
-    <Compile Include="EnvelopeExtensions.cs" />
-    <Compile Include="EnvelopeFactory.cs" />
-    <Compile Include="EnvelopeV1.cs" />
-    <Compile Include="IMessage.cs" />
+    <Compile Include="Messaging\EnvelopeExtensions.cs" />
+    <Compile Include="Messaging\EnvelopeFactory.cs" />
+    <Compile Include="Messaging\EnvelopeV1.cs" />
+    <Compile Include="IDipNodeFactory.cs" />
+    <Compile Include="Messaging\IMessage.cs" />
     <Compile Include="ILocalRouterConfiguration.cs" />
     <Compile Include="ILocalTerminalConfiguration.cs" />
     <Compile Include="LocalRouterConfiguration.cs" />
+    <Compile Include="Networking\DipInstructionSet.cs" />
+    <Compile Include="Networking\GlobalNetwork.cs" />
+    <Compile Include="Networking\INetworkBootstrapConfiguration.cs" />
+    <Compile Include="Networking\INetworkContext.cs" />
+    <Compile Include="Networking\LocalhostNetwork.cs" />
+    <Compile Include="Networking\NetworkBootstrapper.cs" />
+    <Compile Include="Networking\NetworkContext.cs" />
     <Compile Include="PeeringResult.cs" />
     <Compile Include="PeeringState.cs" />
     <Compile Include="LocalRouter.cs" />
@@ -64,14 +72,16 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\libdtp\libdtp.csproj">
+      <Project>{C9F92566-1F94-4235-944C-19364459F9A6}</Project>
+      <Name>libdtp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\libwarty\ItzWarty.csproj">
       <Project>{097b6b08-4034-408a-b3c0-a12e8f9e8893}</Project>
       <Name>ItzWarty</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Message\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
