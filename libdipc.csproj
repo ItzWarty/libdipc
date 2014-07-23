@@ -45,6 +45,7 @@
     <Compile Include="DipIdentifier.cs" />
     <Compile Include="DipNodeBase.cs" />
     <Compile Include="DipRole.cs" />
+    <Compile Include="LocalServiceTerminal.cs" />
     <Compile Include="Messaging\EnvelopeExtensions.cs" />
     <Compile Include="Messaging\EnvelopeFactory.cs" />
     <Compile Include="Messaging\EnvelopeV1.cs" />
@@ -54,8 +55,11 @@
     <Compile Include="ILocalTerminalConfiguration.cs" />
     <Compile Include="LocalRouterConfiguration.cs" />
     <Compile Include="Networking\DipInstructionSet.cs" />
+    <Compile Include="Networking\TransportHandlers\DipPassEnvelopeRith.cs" />
+    <Compile Include="Networking\DTP_DIP.cs" />
     <Compile Include="Networking\GlobalNetwork.cs" />
     <Compile Include="Networking\INetworkBootstrapConfiguration.cs" />
+    <Compile Include="Networking\INetworkBootstrapper.cs" />
     <Compile Include="Networking\INetworkContext.cs" />
     <Compile Include="Networking\LocalhostNetwork.cs" />
     <Compile Include="Networking\NetworkBootstrapper.cs" />
