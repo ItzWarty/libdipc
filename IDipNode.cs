@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Dargon.Ipc.Messaging;
 
@@ -23,7 +24,7 @@ namespace Dargon.Ipc
       void SendV1<T>(IEnvelopeV1<T> envelope);
       void Receive<T>(IEnvelopeV1<T> envelope);
       void ReceiveV1<T>(IEnvelopeV1<T> envelope);
-      IMessage DequeueMessage();
+      IMessage DequeueMessage(CancellationToken? cancellationToken = null);
       bool TryDequeueMessage(out IMessage message);
    }
 }

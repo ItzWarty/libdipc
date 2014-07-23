@@ -156,7 +156,7 @@ namespace Dargon.Ipc
       public abstract void ReceiveV1<T>(IEnvelopeV1<T> envelope);
 
       protected virtual void EnqueueMessage(IMessage message) { m_messageQueue.Add(message); }
-      public virtual IMessage DequeueMessage() { return m_messageQueue.Take(); }
+      public virtual IMessage DequeueMessage(CancellationToken? cancellationToken = null) { return cancellationToken == null ? m_messageQueue.Take() : m_messageQueue.Take(cancellationToken.Value); }
       public virtual bool TryDequeueMessage(out IMessage message) { return m_messageQueue.TryTake(out message); }
 
       protected void RouteEnvelope<T>(IEnvelopeV1<T> envelope)
