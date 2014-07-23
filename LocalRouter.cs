@@ -29,7 +29,7 @@ namespace Dargon.Ipc
 
       protected override IPeeringResult PeerChild(IDipNode child)
       {
-         if (child.Role == DipRole.RemoteTerminal)
+         if (child.Role.HasFlag(DipRole.RemoteTerminal))
             return PeeringFailure(child, new InvalidOperationException("Local nodes cannot directly peer with remote terminals"));
 
          var result = child.PeerParentAsync(this).Result;
