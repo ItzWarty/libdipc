@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using Dargon.Ipc.Messaging;
-using ItzWarty;
 
-namespace Dargon.Ipc
+namespace Dargon.Ipc.Routing
 {
    public class LocalRouter : DipNodeBase
    {

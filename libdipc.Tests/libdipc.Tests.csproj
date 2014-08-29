@@ -72,14 +72,19 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="LocalDipTerminalTests.cs" />
-    <Compile Include="LocalRouterTests.cs" />
-    <Compile Include="LocalRoutingIT.cs" />
+    <Compile Include="PortableObjects\PofReaderTest.cs" />
+    <Compile Include="Routing\LocalDipTerminalTests.cs" />
+    <Compile Include="Routing\LocalRouterTests.cs" />
+    <Compile Include="Routing\LocalRoutingIT.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProtobufLearningTest.cs" />
-    <Compile Include="ReflectionLearningTests.cs" />
+    <Compile Include="Routing\ProtobufLearningTest.cs" />
+    <Compile Include="PortableObjects\ReflectionLearningTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\libtestutil\libtestutil.csproj">
+      <Project>{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}</Project>
+      <Name>libtestutil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\libdipc.csproj">
       <Project>{11B56557-7083-4C92-BF31-9EE0E4EE896F}</Project>
       <Name>libdipc</Name>
@@ -89,6 +94,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

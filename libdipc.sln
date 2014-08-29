@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItzWarty", "..\libwarty\Itz
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libdtp", "..\libdtp\libdtp.csproj", "{C9F92566-1F94-4235-944C-19364459F9A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libtestutil", "..\libtestutil\libtestutil.csproj", "{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,18 @@ Global
 		{C9F92566-1F94-4235-944C-19364459F9A6}.TempBuild|Any CPU.ActiveCfg = Release|Any CPU
 		{C9F92566-1F94-4235-944C-19364459F9A6}.TempBuild|Any CPU.Build.0 = Release|Any CPU
 		{C9F92566-1F94-4235-944C-19364459F9A6}.TempBuild|x86.ActiveCfg = Release|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.DummyPlatform|Any CPU.ActiveCfg = Debug|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.DummyPlatform|Any CPU.Build.0 = Debug|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.DummyPlatform|x86.ActiveCfg = Debug|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.Release|x86.ActiveCfg = Release|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.TempBuild|Any CPU.ActiveCfg = Release|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.TempBuild|Any CPU.Build.0 = Release|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.TempBuild|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

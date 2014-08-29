@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dargon.Ipc
+namespace Dargon.Ipc.Routing
 {
    public interface ILocalTerminalConfiguration
    {

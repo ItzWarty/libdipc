@@ -1,7 +1,7 @@
 ﻿using System;
 using Dargon.Ipc.Networking;
 
-namespace Dargon.Ipc
+namespace Dargon.Ipc.Routing
 {
    public interface IDipNodeFactory
    {

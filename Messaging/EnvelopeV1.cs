@@ -1,4 +1,5 @@
 ﻿using System;
+using Dargon.Ipc.Routing;
 using ProtoBuf;
 
 namespace Dargon.Ipc.Messaging

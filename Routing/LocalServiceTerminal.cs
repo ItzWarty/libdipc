@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using Dargon.Ipc.Messaging;
 using ItzWarty;
-using ProtoBuf;
 
-namespace Dargon.Ipc
+namespace Dargon.Ipc.Routing
 {
    public class LocalServiceTerminal<TService> : LocalTerminal
       where TService : class

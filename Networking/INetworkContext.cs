@@ -1,3 +1,5 @@
+using Dargon.Ipc.Routing;
+
 namespace Dargon.Ipc.Networking
 {
    public interface INetworkContext

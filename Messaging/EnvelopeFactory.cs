@@ -1,4 +1,5 @@
 ﻿using System;
+using Dargon.Ipc.Routing;
 
 namespace Dargon.Ipc.Messaging
 {

@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using Dargon.Ipc.Messaging;
 
-namespace Dargon.Ipc
+namespace Dargon.Ipc.Routing
 {
    public class LocalTerminal : DipNodeBase
    {

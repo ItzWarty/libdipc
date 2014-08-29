@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using Dargon.Ipc;
 using Dargon.Ipc.Messaging;
+using Dargon.Ipc.Routing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Moq.Sequences;
-using System.Linq;
 
-namespace libdipc.Tests
+namespace libdipc.Tests.Routing
 {
    [TestClass]
    public class LocalDipTerminalTests

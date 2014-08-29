@@ -42,18 +42,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DipIdentifier.cs" />
-    <Compile Include="DipNodeBase.cs" />
-    <Compile Include="DipRole.cs" />
-    <Compile Include="LocalServiceTerminal.cs" />
+    <Compile Include="Routing\DipIdentifier.cs" />
+    <Compile Include="Routing\DipNodeBase.cs" />
+    <Compile Include="Routing\DipRole.cs" />
+    <Compile Include="Routing\LocalServiceTerminal.cs" />
     <Compile Include="Messaging\EnvelopeExtensions.cs" />
     <Compile Include="Messaging\EnvelopeFactory.cs" />
     <Compile Include="Messaging\EnvelopeV1.cs" />
-    <Compile Include="IDipNodeFactory.cs" />
+    <Compile Include="Routing\IDipNodeFactory.cs" />
     <Compile Include="Messaging\IMessage.cs" />
-    <Compile Include="ILocalRouterConfiguration.cs" />
-    <Compile Include="ILocalTerminalConfiguration.cs" />
-    <Compile Include="LocalRouterConfiguration.cs" />
+    <Compile Include="Routing\ILocalRouterConfiguration.cs" />
+    <Compile Include="Routing\ILocalTerminalConfiguration.cs" />
+    <Compile Include="Routing\LocalRouterConfiguration.cs" />
     <Compile Include="Networking\DipInstructionSet.cs" />
     <Compile Include="Networking\TransportHandlers\DipPassEnvelopeRith.cs" />
     <Compile Include="Networking\DTP_DIP.cs" />
@@ -64,12 +64,12 @@
     <Compile Include="Networking\LocalhostNetwork.cs" />
     <Compile Include="Networking\NetworkBootstrapper.cs" />
     <Compile Include="Networking\NetworkContext.cs" />
-    <Compile Include="PeeringResult.cs" />
-    <Compile Include="PeeringState.cs" />
-    <Compile Include="LocalRouter.cs" />
-    <Compile Include="LocalTerminalConfiguration.cs" />
-    <Compile Include="IDipNode.cs" />
-    <Compile Include="LocalTerminal.cs" />
+    <Compile Include="Routing\PeeringResult.cs" />
+    <Compile Include="Routing\PeeringState.cs" />
+    <Compile Include="Routing\LocalRouter.cs" />
+    <Compile Include="Routing\LocalTerminalConfiguration.cs" />
+    <Compile Include="Routing\IDipNode.cs" />
+    <Compile Include="Routing\LocalTerminal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -85,7 +85,6 @@
       <Name>ItzWarty</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace libdipc.Tests
+namespace libdipc.Tests.PortableObjects
 {
    [TestClass]
    public class ReflectionLearningTests
@@ -22,8 +19,7 @@ namespace libdipc.Tests
          Assert.IsTrue(type.IsGenericType);
          Assert.IsTrue(type.IsGenericTypeDefinition);
          Assert.IsFalse(type.IsGenericParameter);
-         //foreach (var argument in type.GetGenericArguments())
-         //   Console.WriteLine("> " + argument);
+         Assert.AreEqual(2, type.GetGenericArguments().Length);
       }
 
       [TestMethod]

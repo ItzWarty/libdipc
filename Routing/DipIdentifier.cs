@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ProtoBuf;
 
-namespace Dargon.Ipc
+namespace Dargon.Ipc.Routing
 {
    [ProtoContract]
    public interface IDipIdentifier

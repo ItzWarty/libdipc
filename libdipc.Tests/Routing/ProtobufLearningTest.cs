@@ -3,7 +3,7 @@ using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProtoBuf;
 
-namespace libdipc.Tests
+namespace libdipc.Tests.Routing
 {
    [TestClass]
    public class ProtobufLearningTest
