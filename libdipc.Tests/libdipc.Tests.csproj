@@ -81,6 +81,10 @@
     <Compile Include="PortableObjects\ReflectionLearningTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\libdpo\libdpo.csproj">
+      <Project>{DA87B9E0-3584-4448-97B5-9877CAC44352}</Project>
+      <Name>libdpo</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\libtestutil\libtestutil.csproj">
       <Project>{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}</Project>
       <Name>libtestutil</Name>

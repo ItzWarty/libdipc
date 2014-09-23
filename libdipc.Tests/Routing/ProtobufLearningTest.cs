@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using ProtoBuf;
 
 namespace libdipc.Tests.Routing
@@ -25,6 +26,7 @@ namespace libdipc.Tests.Routing
          Console.WriteLine(nextData);
       }
 
+      [Microsoft.VisualStudio.TestTools.UnitTesting.ExpectedException(typeof(InvalidOperationException))]
       [TestMethod]
       public void RunProtobufLearningTestGenericsSerialization()
       {

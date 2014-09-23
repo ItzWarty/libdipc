@@ -4,17 +4,17 @@ using ItzWarty;
 
 namespace Dargon.Ipc.Routing
 {
-   public class LocalServiceTerminal<TService> : LocalTerminal
-      where TService : class
+   public class LocalServiceTerminal<TServiceInterface> : LocalTerminal
+      where TServiceInterface : class
    {
-      private readonly TService m_service;
+      private readonly TServiceInterface m_service;
       private readonly Thread m_messageConsumerThread;
       private readonly CancellationTokenSource m_cancellationTokenSource = new CancellationTokenSource();
 
-      public LocalServiceTerminal(TService service, ILocalTerminalConfiguration config) 
+      public LocalServiceTerminal(TServiceInterface service, ILocalTerminalConfiguration config) 
          : base(config)
       {
-         if (!typeof(TService).IsInterface)
+         if (!typeof(TServiceInterface).IsInterface)
             throw new InvalidOperationException("Expected TService to be an interface!");
 
          m_service = service;
