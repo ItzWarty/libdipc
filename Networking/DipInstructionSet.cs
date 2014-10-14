@@ -8,14 +8,17 @@ namespace Dargon.Ipc.Networking
    {
       public bool UseConstructionContext { get; private set; }
       public object ConstructionContext { get; private set; }
-      public Type GetRemotelyInitializedTransactionHandlerType(byte opcode)
+      
+      public bool TryCreateRemotelyInitializedTransactionHandler(byte opcode, uint transactionId, out RemotelyInitializedTransactionHandler handler)
       {
+         handler = null;
          switch ((DTP_DIP)opcode)
          {
             case DTP_DIP.PASS_ENVELOPE:
-               return typeof(DipPassEnvelopeRith);
+               handler = new DipPassEnvelopeRith(transactionId);
+               break;
          }
-         return null;
+         return handler != null;
       }
    }
 }
