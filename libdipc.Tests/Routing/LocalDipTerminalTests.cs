@@ -1,21 +1,22 @@
-﻿using System;
-using System.Threading.Tasks;
-using Dargon.Ipc.Messaging;
+﻿using Dargon.Ipc.Messaging;
 using Dargon.Ipc.Routing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using NMockito;
+using System;
+using System.Threading.Tasks;
 
 namespace libdipc.Tests.Routing
 {
    [TestClass]
-   public class LocalDipTerminalTests
+   public class LocalDipTerminalTests : NMockitoInstance
    {
       private LocalTerminal testObj;
 
-      private Mock<ILocalTerminalConfiguration> configuration = new Mock<ILocalTerminalConfiguration>();
-      private static Guid otherTerminalGuid = new Guid("372EE479-3B88-447E-9526-90F7F3578276");
-      private IDipIdentifier otherTerminalIdentifier = new DipIdentifier(otherTerminalGuid);
-      private Mock<IDipNode> otherTerminal = new Mock<IDipNode>();
+      [Mock] private readonly ILocalTerminalConfiguration configuration = null;
+      [Mock] private readonly IDipNode otherTerminal = null;
+
+      private static readonly Guid otherTerminalGuid = new Guid("372EE479-3B88-447E-9526-90F7F3578276");
+      private readonly IDipIdentifier otherTerminalIdentifier = new DipIdentifier(otherTerminalGuid);
       private DateTime emptyMessageTimeSent;
       private DateTime emptyMessageTimeReceived;
       
@@ -27,12 +28,13 @@ namespace libdipc.Tests.Routing
       [TestInitialize]
       public void Setup()
       {
-         testObj = new LocalTerminal(configuration.Object);
+         InitializeMocks();
+         testObj = new LocalTerminal(configuration);
 
          succeededPeeringResult = new PeeringResult(PeeringState.Connected, testObj);
          failedPeeringResult = new PeeringResult(PeeringState.Disconnected, testObj);
-         otherTerminal.Setup((t) => t.PeerChildAsync(testObj)).Returns(Task.FromResult(succeededPeeringResult));
-         otherTerminal.Setup((t) => t.Guid).Returns(otherTerminalGuid);
+         When(otherTerminal.PeerChildAsync(testObj)).ThenReturn(Task.FromResult(succeededPeeringResult));
+         When(otherTerminal.Guid).ThenReturn(otherTerminalGuid);
          
          emptyMessageTimeSent = DateTime.UtcNow;
          emptyMessageTimeReceived = emptyMessageTimeSent + TimeSpan.FromSeconds(5);
@@ -43,7 +45,7 @@ namespace libdipc.Tests.Routing
       [TestMethod]
       public void LocalTerminalRefusesParentingPeers()
       {
-         var result = testObj.PeerChildAsync(otherTerminal.Object).Result;
+         var result = testObj.PeerChildAsync(otherTerminal).Result;
          Assert.AreEqual(PeeringState.Disconnected, result.PeeringState);
          Assert.IsNotNull(result.Exception);
       }

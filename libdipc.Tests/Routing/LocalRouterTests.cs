@@ -3,100 +3,102 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dargon.Ipc.Routing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using NMockito;
 
 namespace libdipc.Tests.Routing
 {
    [TestClass]
-   public class LocalRouterTests
+   public class LocalRouterTests : NMockitoInstance
    {
       private LocalRouter testObj;
 
       private readonly Guid accessibleLocalNodeGuid = Guid.NewGuid();
-      private readonly Mock<IDipNode> accessibleLocalNode = new Mock<IDipNode>();
+      [Mock] private readonly IDipNode accessibleLocalNode = null;
 
       private readonly Guid unaccessibleLocalNodeGuid = Guid.NewGuid();
-      private readonly Mock<IDipNode> unaccessibleLocalNode = new Mock<IDipNode>();
+      [Mock] private readonly IDipNode unaccessibleLocalNode = null;
       private readonly Exception unaccessibleLocalNodePeeringException = new Exception();
 
       private readonly Guid accessibleRemoteRelayGuid = Guid.NewGuid();
-      private readonly Mock<IDipNode> accessibleRemoteRelay = new Mock<IDipNode>();
+      [Mock] private readonly IDipNode accessibleRemoteRelay = null;
 
       private readonly Guid unaccessibleRemoteTerminalGuid = Guid.NewGuid();
-      private readonly Mock<IDipNode> unaccessibleRemoteTerminal = new Mock<IDipNode>();
+      [Mock] private readonly IDipNode unaccessibleRemoteTerminal = null;
       
       [TestInitialize]
       public void Setup()
       {
+         InitializeMocks();
+
          testObj = new LocalRouter(new LocalRouterConfiguration() { NodeIdentifier = "router1" });
-         accessibleLocalNode.Setup((n) => n.Guid).Returns(accessibleLocalNodeGuid);
-         accessibleLocalNode.Setup((n) => n.Role).Returns(DipRole.LocalRouter);
-         accessibleLocalNode.Setup((n) => n.PeerParentAsync(testObj)).Returns(Task.FromResult<IPeeringResult>(new PeeringResult(PeeringState.Connected, testObj)));
+         When(accessibleLocalNode.Guid).ThenReturn(accessibleLocalNodeGuid);
+         When(accessibleLocalNode.Role).ThenReturn(DipRole.LocalRouter);
+         When(accessibleLocalNode.PeerParentAsync(testObj)).ThenReturn(Task.FromResult<IPeeringResult>(new PeeringResult(PeeringState.Connected, testObj)));
 
-         unaccessibleLocalNode.Setup((n) => n.Guid).Returns(unaccessibleLocalNodeGuid);
-         unaccessibleLocalNode.Setup((n) => n.Role).Returns(DipRole.LocalRouter);
-         unaccessibleLocalNode.Setup((n) => n.PeerParentAsync(testObj)).Returns(Task.FromResult<IPeeringResult>(new PeeringResult(PeeringState.Disconnected, testObj, unaccessibleLocalNodePeeringException)));
+         When(unaccessibleLocalNode.Guid).ThenReturn(unaccessibleLocalNodeGuid);
+         When(unaccessibleLocalNode.Role).ThenReturn(DipRole.LocalRouter);
+         When(unaccessibleLocalNode.PeerParentAsync(testObj)).ThenReturn(Task.FromResult<IPeeringResult>(new PeeringResult(PeeringState.Disconnected, testObj, unaccessibleLocalNodePeeringException)));
 
-         accessibleRemoteRelay.Setup((n) => n.Guid).Returns(accessibleRemoteRelayGuid);
-         accessibleRemoteRelay.Setup((n) => n.Role).Returns(DipRole.RemoteRouter);
-         accessibleRemoteRelay.Setup((n) => n.PeerParentAsync(testObj)).Returns(Task.FromResult<IPeeringResult>(new PeeringResult(PeeringState.Connected, testObj)));
+         When(accessibleRemoteRelay.Guid).ThenReturn(accessibleRemoteRelayGuid);
+         When(accessibleRemoteRelay.Role).ThenReturn(DipRole.RemoteRouter);
+         When(accessibleRemoteRelay.PeerParentAsync(testObj)).ThenReturn(Task.FromResult<IPeeringResult>(new PeeringResult(PeeringState.Connected, testObj)));
 
-         unaccessibleRemoteTerminal.Setup((n) => n.Guid).Returns(unaccessibleRemoteTerminalGuid);
-         unaccessibleRemoteTerminal.Setup((n) => n.Role).Returns(DipRole.RemoteTerminal);
+         When(unaccessibleRemoteTerminal.Guid).ThenReturn(unaccessibleRemoteTerminalGuid);
+         When(unaccessibleRemoteTerminal.Role).ThenReturn(DipRole.RemoteTerminal);
       }
 
       [TestMethod]
       public void LocalRouterDelegatesSuccessfulPeerWithLocalNodesWithoutErrors()
       {
-         var result = testObj.PeerChildAsync(accessibleLocalNode.Object).Result;
+         var result = testObj.PeerChildAsync(accessibleLocalNode).Result;
 
-         accessibleLocalNode.Verify((t) => t.PeerParentAsync(testObj));
+         Verify(accessibleLocalNode).PeerParentAsync(testObj);
          Assert.AreEqual(PeeringState.Connected, result.PeeringState);
-         Assert.AreEqual(accessibleLocalNode.Object, result.Peer);
+         Assert.AreEqual(accessibleLocalNode, result.Peer);
          Assert.IsNull(result.Exception);
       }
 
       [TestMethod]
       public void LocalRouterBubblesFailedPeering()
       {
-         var result = testObj.PeerChildAsync(unaccessibleLocalNode.Object).Result;
+         var result = testObj.PeerChildAsync(unaccessibleLocalNode).Result;
 
-         unaccessibleLocalNode.Verify((t) => t.PeerParentAsync(testObj));
+         Verify(unaccessibleLocalNode).PeerParentAsync(testObj);
          Assert.AreEqual(PeeringState.Disconnected, result.PeeringState);
-         Assert.AreEqual(unaccessibleLocalNode.Object, result.Peer);
+         Assert.AreEqual(unaccessibleLocalNode, result.Peer);
          Assert.AreEqual(unaccessibleLocalNodePeeringException, result.Exception);
       }
 
       [TestMethod]
       public void LocalRouterDelegatesSuccessfulPeerWithRemoteRouterWithoutErrors()
       {
-         var result = testObj.PeerChildAsync(accessibleRemoteRelay.Object).Result;
+         var result = testObj.PeerChildAsync(accessibleRemoteRelay).Result;
 
-         accessibleRemoteRelay.Verify((t) => t.PeerParentAsync(testObj));
+         Verify(accessibleRemoteRelay).PeerParentAsync(testObj);
          Assert.AreEqual(PeeringState.Connected, result.PeeringState);
-         Assert.AreEqual(accessibleRemoteRelay.Object, result.Peer);
+         Assert.AreEqual(accessibleRemoteRelay, result.Peer);
          Assert.IsNull(result.Exception);
       }
 
       [TestMethod]
       public void LocalRouterUnsuccessfulPeersWithRemoteTerminalWithoutDelegation()
       {
-         var result = testObj.PeerChildAsync(unaccessibleRemoteTerminal.Object).Result;
+         var result = testObj.PeerChildAsync(unaccessibleRemoteTerminal).Result;
 
-         unaccessibleRemoteTerminal.Verify((t) => t.PeerParentAsync(testObj), Times.Never());
+         Verify(unaccessibleRemoteTerminal, Never()).PeerParentAsync(testObj);
          Assert.AreEqual(PeeringState.Disconnected, result.PeeringState);
-         Assert.AreEqual(unaccessibleRemoteTerminal.Object, result.Peer);
+         Assert.AreEqual(unaccessibleRemoteTerminal, result.Peer);
          Assert.IsNotNull(result.Exception);
       }
 
       [TestMethod]
       public void LocalRouterReflectsSuccessfullyPeeredNodesInPeersProperty()
       {
-         testObj.PeerChildAsync(accessibleLocalNode.Object).Wait();
-         Assert.IsTrue(testObj.Peers.Contains(accessibleLocalNode.Object));
+         testObj.PeerChildAsync(accessibleLocalNode).Wait();
+         Assert.IsTrue(testObj.Peers.Contains(accessibleLocalNode));
 
-         testObj.PeerChildAsync(accessibleRemoteRelay.Object).Wait();
-         Assert.IsTrue(testObj.Peers.Contains(accessibleRemoteRelay.Object));
+         testObj.PeerChildAsync(accessibleRemoteRelay).Wait();
+         Assert.IsTrue(testObj.Peers.Contains(accessibleRemoteRelay));
 
          Assert.AreEqual(2, testObj.Peers.Count);
       }
@@ -104,11 +106,11 @@ namespace libdipc.Tests.Routing
       [TestMethod]
       public void LocalRouterDoesNotReflectUnsuccessfullyPeeredNodesInPeersProperty()
       {
-         testObj.PeerChildAsync(unaccessibleRemoteTerminal.Object).Wait();
-         Assert.IsFalse(testObj.Peers.Contains(unaccessibleRemoteTerminal.Object));
+         testObj.PeerChildAsync(unaccessibleRemoteTerminal).Wait();
+         Assert.IsFalse(testObj.Peers.Contains(unaccessibleRemoteTerminal));
 
-         testObj.PeerChildAsync(unaccessibleLocalNode.Object).Wait();
-         Assert.IsFalse(testObj.Peers.Contains(unaccessibleLocalNode.Object));
+         testObj.PeerChildAsync(unaccessibleLocalNode).Wait();
+         Assert.IsFalse(testObj.Peers.Contains(unaccessibleLocalNode));
 
          Assert.AreEqual(0, testObj.Peers.Count);
       }

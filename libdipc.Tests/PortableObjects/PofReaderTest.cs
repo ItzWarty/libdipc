@@ -6,12 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Dargon.PortableObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using NMockito;
 
 namespace libdipc.Tests.PortableObjects
 {
    [TestClass]
-   public class PofReaderTest : MockitoLike
+   public class PofReaderTest : NMockitoInstance
    {
       private PofReader testObj;
       [Mock] private IPofContext context;
@@ -21,8 +21,7 @@ namespace libdipc.Tests.PortableObjects
       public void Setup()
       {
          InitializeMocks();
-         //verify(context).GetTypeOrNull(1);
-         //testObj = new PofReader(context.Object, slotSource.Object);
+         testObj = new PofReader(context, slotSource);
       }
 
       [TestMethod]
@@ -32,12 +31,12 @@ namespace libdipc.Tests.PortableObjects
          Assert.IsNotNull(slotSource);
 
          var arr = new byte[4];
-         when(() => slotSource.GetSlot(0)).ThenReturn(null);
-         when(() => slotSource.GetSlot(1)).ThenReturn(arr);
+         When(slotSource.GetSlot(0)).ThenReturn(null);
+         When(slotSource.GetSlot(1)).ThenReturn(arr);
          Assert.IsNull(slotSource.GetSlot(0));
          Assert.AreEqual(arr, slotSource.GetSlot(1));
 
-         verify(() => slotSource.GetSlot(0));
+         Verify(slotSource).GetSlot(0);
       }
 
       private void Herp<TMockInterface, TResult>(Expression<Func<TMockInterface, TResult>> expr)
