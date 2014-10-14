@@ -1,5 +1,4 @@
 using Dargon.Transport;
-using ProtoBuf;
 
 namespace Dargon.Ipc.Networking.TransportHandlers
 {

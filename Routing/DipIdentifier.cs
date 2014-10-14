@@ -1,20 +1,15 @@
 ﻿using System;
-using ProtoBuf;
 
 namespace Dargon.Ipc.Routing
 {
-   [ProtoContract]
    public interface IDipIdentifier
    {
-      [ProtoMember(1)]
       Guid Guid { get; }
 
       // 0 for root, +1 for each downward hop
-      [ProtoMember(2)]
       int Depth { get; }
 
       // Equivalent to writing this[int i] results to array
-      [ProtoMember(3)]
       Guid[] Breadcrumbs { get; }
 
       // 0 - root, this[Depth] for self guid
