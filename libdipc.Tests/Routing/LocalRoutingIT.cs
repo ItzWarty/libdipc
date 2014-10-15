@@ -1,5 +1,5 @@
-﻿using Dargon.Ipc.Messaging;
-using Dargon.Ipc.Routing;
+﻿using Dargon.Ipc;
+using Dargon.Ipc.OldMessaging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace libdipc.Tests.Routing
@@ -52,7 +52,7 @@ namespace libdipc.Tests.Routing
          SuccessfullyPeerRouterWithChild(rootRouter, innerRouter2);
          SuccessfullyPeerRouterWithChild(innerRouter2, terminal7);
 
-         var nodes = new IDipNode[] { rootRouter, innerRouter1, innerRouter1_1, innerRouter1_2, innerRouter2, terminal1, terminal2, terminal3, terminal4, terminal5, terminal6, terminal7 };
+         var nodes = new INode[] { rootRouter, innerRouter1, innerRouter1_1, innerRouter1_2, innerRouter2, terminal1, terminal2, terminal3, terminal4, terminal5, terminal6, terminal7 };
          for (var i = 0; i < nodes.Length; i++)
          {
             for (var j = i + 1; j < nodes.Length; j++)
@@ -62,13 +62,13 @@ namespace libdipc.Tests.Routing
          }
       }
 
-      private void SuccessfullyPeerRouterWithChild(LocalRouter router, IDipNode node)
+      private void SuccessfullyPeerRouterWithChild(LocalRouter router, INode node)
       {
          var result = node.PeerParentAsync(router).Result;
          Assert.AreEqual(PeeringState.Connected, result.PeeringState);
       }
 
-      private void SendPingAndPong(IDipNode a, IDipNode b)
+      private void SendPingAndPong(INode a, INode b)
       {
          object ping = 1;
          object pong = 2;

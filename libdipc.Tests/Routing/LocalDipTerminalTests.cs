@@ -1,5 +1,5 @@
-﻿using Dargon.Ipc.Messaging;
-using Dargon.Ipc.Routing;
+﻿using Dargon.Ipc;
+using Dargon.Ipc.OldMessaging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NMockito;
 using System;
@@ -13,7 +13,7 @@ namespace libdipc.Tests.Routing
       private LocalTerminal testObj;
 
       [Mock] private readonly ILocalTerminalConfiguration configuration = null;
-      [Mock] private readonly IDipNode otherTerminal = null;
+      [Mock] private readonly INode otherTerminal = null;
 
       private static readonly Guid otherTerminalGuid = new Guid("372EE479-3B88-447E-9526-90F7F3578276");
       private readonly IDipIdentifier otherTerminalIdentifier = new DipIdentifier(otherTerminalGuid);

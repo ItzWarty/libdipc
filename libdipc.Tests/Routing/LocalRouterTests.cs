@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Dargon.Ipc.Routing;
+using Dargon.Ipc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NMockito;
 
@@ -13,17 +13,17 @@ namespace libdipc.Tests.Routing
       private LocalRouter testObj;
 
       private readonly Guid accessibleLocalNodeGuid = Guid.NewGuid();
-      [Mock] private readonly IDipNode accessibleLocalNode = null;
+      [Mock] private readonly INode accessibleLocalNode = null;
 
       private readonly Guid unaccessibleLocalNodeGuid = Guid.NewGuid();
-      [Mock] private readonly IDipNode unaccessibleLocalNode = null;
+      [Mock] private readonly INode unaccessibleLocalNode = null;
       private readonly Exception unaccessibleLocalNodePeeringException = new Exception();
 
       private readonly Guid accessibleRemoteRelayGuid = Guid.NewGuid();
-      [Mock] private readonly IDipNode accessibleRemoteRelay = null;
+      [Mock] private readonly INode accessibleRemoteRelay = null;
 
       private readonly Guid unaccessibleRemoteTerminalGuid = Guid.NewGuid();
-      [Mock] private readonly IDipNode unaccessibleRemoteTerminal = null;
+      [Mock] private readonly INode unaccessibleRemoteTerminal = null;
       
       [TestInitialize]
       public void Setup()

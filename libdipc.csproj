@@ -39,40 +39,78 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Routing\DipIdentifier.cs" />
-    <Compile Include="Routing\DipNodeBase.cs" />
-    <Compile Include="Routing\DipRole.cs" />
-    <Compile Include="Routing\LocalServiceTerminal.cs" />
-    <Compile Include="Messaging\EnvelopeExtensions.cs" />
-    <Compile Include="Messaging\EnvelopeFactory.cs" />
-    <Compile Include="Messaging\EnvelopeV1.cs" />
-    <Compile Include="Routing\IDipNodeFactory.cs" />
-    <Compile Include="Messaging\IMessage.cs" />
-    <Compile Include="Routing\ILocalRouterConfiguration.cs" />
-    <Compile Include="Routing\ILocalTerminalConfiguration.cs" />
-    <Compile Include="Routing\LocalRouterConfiguration.cs" />
-    <Compile Include="Networking\DipInstructionSet.cs" />
-    <Compile Include="Networking\TransportHandlers\DipPassEnvelopeRith.cs" />
-    <Compile Include="Networking\DTP_DIP.cs" />
-    <Compile Include="Networking\GlobalNetwork.cs" />
-    <Compile Include="Networking\INetworkBootstrapConfiguration.cs" />
-    <Compile Include="Networking\INetworkBootstrapper.cs" />
-    <Compile Include="Networking\INetworkContext.cs" />
-    <Compile Include="Networking\LocalhostNetwork.cs" />
-    <Compile Include="Networking\NetworkBootstrapper.cs" />
-    <Compile Include="Networking\NetworkContext.cs" />
-    <Compile Include="Routing\PeeringResult.cs" />
-    <Compile Include="Routing\PeeringState.cs" />
-    <Compile Include="Routing\LocalRouter.cs" />
-    <Compile Include="Routing\LocalTerminalConfiguration.cs" />
-    <Compile Include="Routing\IDipNode.cs" />
-    <Compile Include="Routing\LocalTerminal.cs" />
+    <Compile Include="Components\IIdentityComponent.cs" />
+    <Compile Include="Components\IPeeringBehaviorComponent.cs" />
+    <Compile Include="Components\IReceivingBehaviorComponent.cs" />
+    <Compile Include="Components\IRoutingBehaviorComponent.cs" />
+    <Compile Include="Components\ISendingBehaviorComponent.cs" />
+    <None Include="_OldMessaging\EnvelopeFactory.cs" />
+    <None Include="_OldMessaging\EnvelopeV1.cs" />
+    <None Include="_OldMessaging\IMessage.cs" />
+    <None Include="_OldNetworking\DipInstructionSet.cs" />
+    <None Include="_OldNetworking\TransportHandlers\DipPassEnvelopeRith.cs" />
+    <None Include="_OldNetworking\DTP_DIP.cs" />
+    <None Include="_OldNetworking\GlobalNetwork.cs" />
+    <None Include="_OldNetworking\INetworkBootstrapConfiguration.cs" />
+    <None Include="_OldNetworking\INetworkBootstrapper.cs" />
+    <None Include="_OldNetworking\INetworkContext.cs" />
+    <None Include="_OldNetworking\LocalhostNetwork.cs" />
+    <None Include="_OldNetworking\NetworkBootstrapper.cs" />
+    <None Include="_OldNetworking\NetworkContext.cs" />
+    <None Include="_OldRouting\DipNodeBase.cs">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="_OldRouting\DipRole.cs">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="_OldRouting\IDipNode.cs">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="_OldRouting\IDipNodeFactory.cs">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="_OldRouting\ILocalRouterConfiguration.cs">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="_OldRouting\ILocalTerminalConfiguration.cs">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="_OldRouting\LocalRouter.cs">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="_OldRouting\LocalRouterConfiguration.cs">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="_OldRouting\LocalServiceTerminal.cs">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="_OldRouting\LocalTerminal.cs">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="_OldRouting\LocalTerminalConfiguration.cs">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="_OldRouting\PeeringResult.cs">
+      <SubType>Code</SubType>
+    </None>
+    <Compile Include="ILocalNode.cs" />
+    <Compile Include="LocalNodeImpl.cs" />
+    <Compile Include="PeeringState.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="INode.cs" />
+    <Compile Include="ILocalNodeFactory.cs" />
+    <Compile Include="IPeeringResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\libdpo\libdpo.csproj">
+      <Project>{DA87B9E0-3584-4448-97B5-9877CAC44352}</Project>
+      <Name>libdpo</Name>
+    </ProjectReference>
     <ProjectReference Include="..\libdtp\libdtp.csproj">
       <Project>{C9F92566-1F94-4235-944C-19364459F9A6}</Project>
       <Name>libdtp</Name>

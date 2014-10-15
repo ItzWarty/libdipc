@@ -63,9 +63,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="PortableObjects\PofReaderTest.cs" />
-    <Compile Include="Routing\LocalDipTerminalTests.cs" />
-    <Compile Include="Routing\LocalRouterTests.cs" />
-    <Compile Include="Routing\LocalRoutingIT.cs" />
+    <None Include="Routing\LocalDipTerminalTests.cs" />
+    <None Include="Routing\LocalRouterTests.cs" />
+    <None Include="Routing\LocalRoutingIT.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PortableObjects\ReflectionLearningTests.cs" />
   </ItemGroup>
