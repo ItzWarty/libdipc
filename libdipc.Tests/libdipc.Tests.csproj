@@ -35,15 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.5.7.10213\lib\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.mocks">
-      <HintPath>..\packages\NUnit.2.5.7.10213\lib\nunit.mocks.dll</HintPath>
-    </Reference>
-    <Reference Include="pnunit.framework">
-      <HintPath>..\packages\NUnit.2.5.7.10213\lib\pnunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.XML" />
@@ -62,7 +53,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="LocalNodeImplTest.cs" />
     <Compile Include="PortableObjects\PofReaderTest.cs" />
+    <None Include="packages.config" />
     <None Include="Routing\LocalDipTerminalTests.cs" />
     <None Include="Routing\LocalRouterTests.cs" />
     <None Include="Routing\LocalRoutingIT.cs" />
@@ -78,6 +71,10 @@
       <Project>{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}</Project>
       <Name>libtestutil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\libwarty\ItzWarty.csproj">
+      <Project>{097B6B08-4034-408A-B3C0-A12E8F9E8893}</Project>
+      <Name>ItzWarty</Name>
+    </ProjectReference>
     <ProjectReference Include="..\libdipc.csproj">
       <Project>{11B56557-7083-4C92-BF31-9EE0E4EE896F}</Project>
       <Name>libdipc</Name>
@@ -85,7 +82,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Choose>

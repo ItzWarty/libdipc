@@ -1,6 +1,6 @@
 ﻿namespace Dargon.Ipc.Components
 {
-   public interface IRoutingBehaviorComponent
+   public interface IRoutingBehaviorComponent : IComponent
    {
    }
 }

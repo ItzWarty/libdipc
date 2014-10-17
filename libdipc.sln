@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30324.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libdipc", "libdipc.csproj", "{11B56557-7083-4C92-BF31-9EE0E4EE896F}"
 EndProject
@@ -11,9 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItzWarty", "..\libwarty\Itz
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libdtp", "..\libdtp\libdtp.csproj", "{C9F92566-1F94-4235-944C-19364459F9A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libtestutil", "..\libtestutil\libtestutil.csproj", "{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libdpo", "..\libdpo\libdpo.csproj", "{DA87B9E0-3584-4448-97B5-9877CAC44352}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libtestutil", "..\libtestutil\libtestutil.csproj", "{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,18 +79,6 @@ Global
 		{C9F92566-1F94-4235-944C-19364459F9A6}.TempBuild|Any CPU.ActiveCfg = Release|Any CPU
 		{C9F92566-1F94-4235-944C-19364459F9A6}.TempBuild|Any CPU.Build.0 = Release|Any CPU
 		{C9F92566-1F94-4235-944C-19364459F9A6}.TempBuild|x86.ActiveCfg = Release|Any CPU
-		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.DummyPlatform|Any CPU.ActiveCfg = Debug|Any CPU
-		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.DummyPlatform|Any CPU.Build.0 = Debug|Any CPU
-		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.DummyPlatform|x86.ActiveCfg = Debug|Any CPU
-		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.Release|x86.ActiveCfg = Release|Any CPU
-		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.TempBuild|Any CPU.ActiveCfg = Release|Any CPU
-		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.TempBuild|Any CPU.Build.0 = Release|Any CPU
-		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.TempBuild|x86.ActiveCfg = Release|Any CPU
 		{DA87B9E0-3584-4448-97B5-9877CAC44352}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DA87B9E0-3584-4448-97B5-9877CAC44352}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA87B9E0-3584-4448-97B5-9877CAC44352}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -103,6 +91,18 @@ Global
 		{DA87B9E0-3584-4448-97B5-9877CAC44352}.TempBuild|Any CPU.ActiveCfg = Release|Any CPU
 		{DA87B9E0-3584-4448-97B5-9877CAC44352}.TempBuild|Any CPU.Build.0 = Release|Any CPU
 		{DA87B9E0-3584-4448-97B5-9877CAC44352}.TempBuild|x86.ActiveCfg = Release|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.DummyPlatform|Any CPU.ActiveCfg = Debug|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.DummyPlatform|Any CPU.Build.0 = Debug|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.DummyPlatform|x86.ActiveCfg = Debug|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.Release|x86.ActiveCfg = Release|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.TempBuild|Any CPU.ActiveCfg = Release|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.TempBuild|Any CPU.Build.0 = Release|Any CPU
+		{0060E29C-DB43-45A8-97AF-17D4AEF0DAD7}.TempBuild|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

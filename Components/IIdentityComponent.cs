@@ -2,7 +2,7 @@
 
 namespace Dargon.Ipc.Components
 {
-   public interface IIdentityComponent
+   public interface IIdentityComponent : IComponent
    {
       Guid Guid { get; }
    }

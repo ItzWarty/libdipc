@@ -5,7 +5,7 @@ namespace Dargon.Ipc
 {
    public interface ILocalNode : INode
    {
-      Task<IPeeringResult> Connect(INode node);
+      Task<IPeeringResult> SetParent(INode node);
       void Send<TPayload>(INode node, TPayload payload) where TPayload : IPortableObject;
    }
 }

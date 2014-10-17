@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>packages\Castle.Core.3.3.1\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,11 +42,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\IComponent.cs" />
+    <Compile Include="Components\IConnectivityComponent.cs" />
     <Compile Include="Components\IIdentityComponent.cs" />
     <Compile Include="Components\IPeeringBehaviorComponent.cs" />
     <Compile Include="Components\IReceivingBehaviorComponent.cs" />
     <Compile Include="Components\IRoutingBehaviorComponent.cs" />
     <Compile Include="Components\ISendingBehaviorComponent.cs" />
+    <Compile Include="IEnvelope.cs" />
+    <Compile Include="INetworkLayer.cs" />
+    <Compile Include="INetworkLayerFactory.cs" />
+    <Compile Include="PayloadType.cs" />
+    <Compile Include="Routing\IRoutingTable.cs" />
+    <None Include="packages.config" />
     <None Include="_OldMessaging\EnvelopeFactory.cs" />
     <None Include="_OldMessaging\EnvelopeV1.cs" />
     <None Include="_OldMessaging\IMessage.cs" />
@@ -94,6 +105,7 @@
       <SubType>Code</SubType>
     </None>
     <Compile Include="ILocalNode.cs" />
+    <Compile Include="ILocalNodeInternal.cs" />
     <Compile Include="LocalNodeImpl.cs" />
     <Compile Include="PeeringState.cs">
       <SubType>Code</SubType>
@@ -102,9 +114,6 @@
     <Compile Include="ILocalNodeFactory.cs" />
     <Compile Include="IPeeringResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libdpo\libdpo.csproj">

@@ -1,8 +1,7 @@
 ﻿namespace Dargon.Ipc.Components
 {
-   public interface IReceivingBehaviorComponent
+   public interface IReceivingBehaviorComponent : IComponent
    {
-//      void Receive<T>(IEnvelopeV1<T> envelope);
-//      void ReceiveV1<T>(IEnvelopeV1<T> envelope);
+      void Receive(INode sender, IEnvelope envelope);
    }
 }

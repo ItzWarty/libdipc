@@ -1,0 +1,99 @@
+﻿using System;
+using System.Threading.Tasks;
+using Dargon.Ipc;
+using Dargon.Ipc.Components;
+using Dargon.PortableObjects;
+using ItzWarty;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NMockito;
+
+namespace libdipc.Tests
+{
+   [TestClass]
+   public class LocalNodeImplTest : NMockitoInstance
+   {
+      private LocalNodeImpl testObj;
+
+      [Mock] private readonly IIdentityComponent identityComponent = null;
+      [Mock] private readonly IPeeringBehaviorComponent peeringBehavior = null;
+      [Mock] private readonly IReceivingBehaviorComponent receivingBehavior = null;
+      [Mock] private readonly ISendingBehaviorComponent sendingBehavior = null;
+      [Mock] private readonly IRoutingBehaviorComponent routingBehavior = null;
+
+      [TestInitialize]
+      public void Setup()
+      {
+         InitializeMocks();
+
+         testObj = new LocalNodeImpl(identityComponent, peeringBehavior, receivingBehavior, sendingBehavior, routingBehavior);
+         VerifyNoMoreInteractions();
+      }
+
+      [TestMethod]
+      public void InitializeAttachesComponentsTest()
+      {
+         testObj.Initialize();
+
+         Verify(identityComponent).Attach(testObj);
+         Verify(peeringBehavior).Attach(testObj);
+         Verify(receivingBehavior).Attach(testObj);
+         Verify(sendingBehavior).Attach(testObj);
+         Verify(routingBehavior).Attach(testObj);
+         VerifyNoMoreInteractions();
+      }
+
+      [TestMethod]
+      public void GuidDelegatesToIdentityComponentTest()
+      {
+         var guid = Guid.NewGuid();
+         When(identityComponent.Guid).ThenReturn(guid);
+         var result = testObj.Guid;
+         AssertEquals(guid, result);
+         Verify(identityComponent).Guid.Wrap();
+         VerifyNoMoreInteractions();
+      }
+
+      [TestMethod]
+      public void SetParentDelegatesToPeeringBehaviorComponentTest()
+      {
+         var otherNode = CreateUntrackedMock<INode>();
+         var peeringResultTask = new Task<IPeeringResult>(() => null);
+         When(peeringBehavior.PeerParentAsync(otherNode)).ThenReturn(peeringResultTask);
+         var result = testObj.SetParent(otherNode);
+         AssertEquals(peeringResultTask, result);
+         Verify(peeringBehavior).PeerParentAsync(otherNode);
+         VerifyNoMoreInteractions();
+      }
+
+      [TestMethod]
+      public void SendDelegatesToSendingBehaviorComponentTest()
+      {
+         var otherNode = CreateUntrackedMock<INode>();
+         var payload = CreateUntrackedMock<IPortableObject>();
+         testObj.Send(otherNode, payload);
+         Verify(sendingBehavior).Send(otherNode, payload);
+         VerifyNoMoreInteractions();
+      }
+
+      [TestMethod]
+      public void ReceiveDelegatesReceivingBehaviorComponentTest()
+      {
+         var otherNode = CreateUntrackedMock<INode>();
+         var payload = CreateUntrackedMock<IEnvelope>();
+         testObj.Receive(otherNode, payload);
+         Verify(receivingBehavior).Receive(otherNode, payload);
+         VerifyNoMoreInteractions();
+      }
+
+      [TestMethod]
+      public void GetComponentTest()
+      {
+         AssertEquals(identityComponent, testObj.GetComponent<IIdentityComponent>());
+         AssertEquals(peeringBehavior, testObj.GetComponent<IPeeringBehaviorComponent>());
+         AssertEquals(receivingBehavior, testObj.GetComponent<IReceivingBehaviorComponent>());
+         AssertEquals(sendingBehavior, testObj.GetComponent<ISendingBehaviorComponent>());
+         AssertEquals(routingBehavior, testObj.GetComponent<IRoutingBehaviorComponent>());
+         VerifyNoMoreInteractions();
+      }
+   }
+}
