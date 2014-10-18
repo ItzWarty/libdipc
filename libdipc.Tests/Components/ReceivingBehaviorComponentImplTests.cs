@@ -45,8 +45,7 @@ namespace Dargon.Ipc.Components
       [TestMethod]
       public void ReceiveDelegatesToRoutingBehaviorIfUntargetedTest()
       {
-         testObj.Attach(node);
-         VerifyNoMoreInteractions();
+         AttachHasNoSideEffectsTest();
 
          When(envelope.Recipient).ThenReturn(otherGuid);
          testObj.Receive(node, envelope);

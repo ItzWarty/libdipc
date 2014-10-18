@@ -2,6 +2,6 @@
 {
    public interface INetworkLayer
    {
-      void Transport(IEnvelope envelope);
+      void Transport(INode node, IEnvelope envelope);
    }
 }

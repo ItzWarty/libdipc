@@ -50,7 +50,9 @@
     <Compile Include="Components\ReceivingBehaviorComponent.cs" />
     <Compile Include="Components\ReceivingBehaviorComponentImpl.cs" />
     <Compile Include="Components\RoutingBehaviorComponent.cs" />
+    <Compile Include="Components\RoutingBehaviorComponentImpl.cs" />
     <Compile Include="Components\SendingBehaviorComponent.cs" />
+    <Compile Include="Components\NullRoutingBehaviorComponentImpl.cs" />
     <Compile Include="IEnvelope.cs" />
     <Compile Include="INetworkLayer.cs" />
     <Compile Include="INetworkLayerFactory.cs" />

@@ -22,6 +22,6 @@ namespace Dargon.Ipc
    {
       public NetworkLayer(IDtpNodeFactory dtpNodeFactory) { var node = dtpNodeFactory.CreateNode(NodeRole.ServerOrClient, 1337); }
 
-      public void Transport(IEnvelope envelope) { throw new System.NotImplementedException(); }
+      public void Transport(INode node, IEnvelope envelope) { throw new System.NotImplementedException(); }
    }
 }
