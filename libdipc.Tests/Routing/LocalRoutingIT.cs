@@ -1,8 +1,6 @@
-﻿using Dargon.Ipc;
-using Dargon.Ipc.OldMessaging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace libdipc.Tests.Routing
+namespace Dargon.Ipc.Routing
 {
    [TestClass]
    public class LocalRoutingIT

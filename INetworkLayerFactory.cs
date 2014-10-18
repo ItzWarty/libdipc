@@ -20,7 +20,7 @@ namespace Dargon.Ipc
 
    public class NetworkLayer : INetworkLayer
    {
-      public NetworkLayer(IDtpNodeFactory dtpNodeFactory) { var node = dtpNodeFactory.CreateOrConnectNode("dargon_ipc"); }
+      public NetworkLayer(IDtpNodeFactory dtpNodeFactory) { var node = dtpNodeFactory.CreateNode(NodeRole.ServerOrClient, 1337); }
 
       public void Transport(IEnvelope envelope) { throw new System.NotImplementedException(); }
    }

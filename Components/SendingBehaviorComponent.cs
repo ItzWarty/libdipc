@@ -1,6 +1,6 @@
 ﻿namespace Dargon.Ipc.Components
 {
-   public interface ISendingBehaviorComponent : IComponent
+   public interface SendingBehaviorComponent : Component
    {
       void Send<TPayload>(INode node, TPayload payload);
       //      void Send<T>(INode recipient, IMessage<T> message);

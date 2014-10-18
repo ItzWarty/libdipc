@@ -2,7 +2,7 @@
 {
    public enum PayloadType : byte
    {
-      User        = 0x00,
-      Discovery   = 0x01
+      User                 = 0x00,
+      DiscoveryHeartbeat   = 0x01
    }
 }

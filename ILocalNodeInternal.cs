@@ -6,6 +6,6 @@ namespace Dargon.Ipc
    public interface ILocalNodeInternal : ILocalNode
    {
       void Receive(INode sender, IEnvelope envelope);
-      T GetComponent<T>() where T : IComponent;
+      T GetComponent<T>() where T : Component;
    }
 }

@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using Dargon.PortableObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NMockito;
 
-namespace libdipc.Tests.PortableObjects
+namespace Dargon.Ipc.PortableObjects
 {
    [TestClass]
    public class PofReaderTest : NMockitoInstance

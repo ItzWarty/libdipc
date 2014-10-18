@@ -2,7 +2,7 @@
 
 namespace Dargon.Ipc.Components
 {
-   public interface IPeeringBehaviorComponent : IComponent
+   public interface PeeringBehaviorComponent : Component
    {
       Task<IPeeringResult> PeerParentAsync(INode parent);
       Task<IPeeringResult> PeerChildAsync(INode child);

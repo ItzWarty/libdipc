@@ -42,13 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\IComponent.cs" />
-    <Compile Include="Components\IConnectivityComponent.cs" />
-    <Compile Include="Components\IIdentityComponent.cs" />
-    <Compile Include="Components\IPeeringBehaviorComponent.cs" />
-    <Compile Include="Components\IReceivingBehaviorComponent.cs" />
-    <Compile Include="Components\IRoutingBehaviorComponent.cs" />
-    <Compile Include="Components\ISendingBehaviorComponent.cs" />
+    <Compile Include="Components\Component.cs" />
+    <Compile Include="Components\ConnectivityComponent.cs" />
+    <Compile Include="Components\IdentityComponentImpl.cs" />
+    <Compile Include="Components\IdentityComponent.cs" />
+    <Compile Include="Components\PeeringBehaviorComponent.cs" />
+    <Compile Include="Components\ReceivingBehaviorComponent.cs" />
+    <Compile Include="Components\ReceivingBehaviorComponentImpl.cs" />
+    <Compile Include="Components\RoutingBehaviorComponent.cs" />
+    <Compile Include="Components\SendingBehaviorComponent.cs" />
     <Compile Include="IEnvelope.cs" />
     <Compile Include="INetworkLayer.cs" />
     <Compile Include="INetworkLayerFactory.cs" />

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace libdipc.Tests.PortableObjects
+namespace Dargon.Ipc.PortableObjects
 {
    [TestClass]
    public class ReflectionLearningTests

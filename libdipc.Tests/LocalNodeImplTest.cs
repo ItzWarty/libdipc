@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Dargon.Ipc;
 using Dargon.Ipc.Components;
 using Dargon.PortableObjects;
 using ItzWarty;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NMockito;
 
-namespace libdipc.Tests
+namespace Dargon.Ipc
 {
    [TestClass]
    public class LocalNodeImplTest : NMockitoInstance
    {
       private LocalNodeImpl testObj;
 
-      [Mock] private readonly IIdentityComponent identityComponent = null;
-      [Mock] private readonly IPeeringBehaviorComponent peeringBehavior = null;
-      [Mock] private readonly IReceivingBehaviorComponent receivingBehavior = null;
-      [Mock] private readonly ISendingBehaviorComponent sendingBehavior = null;
-      [Mock] private readonly IRoutingBehaviorComponent routingBehavior = null;
+      [Mock] private readonly IdentityComponent identityComponent = null;
+      [Mock] private readonly PeeringBehaviorComponent peeringBehavior = null;
+      [Mock] private readonly ReceivingBehaviorComponent receivingBehavior = null;
+      [Mock] private readonly SendingBehaviorComponent sendingBehavior = null;
+      [Mock] private readonly RoutingBehaviorComponent routingBehavior = null;
 
       [TestInitialize]
       public void Setup()
@@ -88,11 +87,11 @@ namespace libdipc.Tests
       [TestMethod]
       public void GetComponentTest()
       {
-         AssertEquals(identityComponent, testObj.GetComponent<IIdentityComponent>());
-         AssertEquals(peeringBehavior, testObj.GetComponent<IPeeringBehaviorComponent>());
-         AssertEquals(receivingBehavior, testObj.GetComponent<IReceivingBehaviorComponent>());
-         AssertEquals(sendingBehavior, testObj.GetComponent<ISendingBehaviorComponent>());
-         AssertEquals(routingBehavior, testObj.GetComponent<IRoutingBehaviorComponent>());
+         AssertEquals(identityComponent, testObj.GetComponent<IdentityComponent>());
+         AssertEquals(peeringBehavior, testObj.GetComponent<PeeringBehaviorComponent>());
+         AssertEquals(receivingBehavior, testObj.GetComponent<ReceivingBehaviorComponent>());
+         AssertEquals(sendingBehavior, testObj.GetComponent<SendingBehaviorComponent>());
+         AssertEquals(routingBehavior, testObj.GetComponent<RoutingBehaviorComponent>());
          VerifyNoMoreInteractions();
       }
    }

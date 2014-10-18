@@ -6,7 +6,7 @@
     <ProjectGuid>{851EDE41-5191-46CE-A0FC-893873AE2099}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>libdipc.Tests</RootNamespace>
+    <RootNamespace>Dargon.Ipc</RootNamespace>
     <AssemblyName>libdipc.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -53,6 +53,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Components\IdentityComponentImplTests.cs" />
+    <Compile Include="Components\ReceivingBehaviorComponentImplTests.cs" />
     <Compile Include="LocalNodeImplTest.cs" />
     <Compile Include="PortableObjects\PofReaderTest.cs" />
     <None Include="packages.config" />

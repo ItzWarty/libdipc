@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
-using Dargon.Ipc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NMockito;
 
-namespace libdipc.Tests.Routing
+namespace Dargon.Ipc.Routing
 {
    [TestClass]
    public class LocalRouterTests : NMockitoInstance

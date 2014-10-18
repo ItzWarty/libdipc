@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dargon.Ipc.Components
 {
-   public interface IConnectivityComponent
+   public interface ConnectivityComponent : Component
    {
       
    }
