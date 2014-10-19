@@ -56,6 +56,7 @@
     <Compile Include="IEnvelope.cs" />
     <Compile Include="INetworkLayer.cs" />
     <Compile Include="INetworkLayerFactory.cs" />
+    <Compile Include="NodeStub.cs" />
     <Compile Include="PayloadType.cs" />
     <Compile Include="Routing\IRoutingTable.cs" />
     <None Include="packages.config" />

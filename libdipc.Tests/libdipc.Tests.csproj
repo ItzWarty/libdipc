@@ -58,6 +58,7 @@
     <Compile Include="Components\ReceivingBehaviorComponentImplTests.cs" />
     <Compile Include="Components\RoutingBehaviorComponentImplTests.cs" />
     <Compile Include="LocalNodeImplTest.cs" />
+    <Compile Include="NodeStubTests.cs" />
     <Compile Include="PortableObjects\PofReaderTest.cs" />
     <None Include="packages.config" />
     <None Include="Routing\LocalDipTerminalTests.cs" />
