@@ -18,13 +18,14 @@ namespace Dargon.Ipc
       [Mock] private readonly ReceivingBehaviorComponent receivingBehavior = null;
       [Mock] private readonly SendingBehaviorComponent sendingBehavior = null;
       [Mock] private readonly RoutingBehaviorComponent routingBehavior = null;
+      [Mock] private readonly DiscoveryBehaviorComponent discoveryBehavior = null;
 
       [TestInitialize]
       public void Setup()
       {
          InitializeMocks();
 
-         testObj = new LocalNodeImpl(identityComponent, peeringBehavior, receivingBehavior, sendingBehavior, routingBehavior);
+         testObj = new LocalNodeImpl(identityComponent, peeringBehavior, receivingBehavior, sendingBehavior, routingBehavior, discoveryBehavior);
          VerifyNoMoreInteractions();
       }
 
@@ -38,6 +39,7 @@ namespace Dargon.Ipc
          Verify(receivingBehavior).Attach(testObj);
          Verify(sendingBehavior).Attach(testObj);
          Verify(routingBehavior).Attach(testObj);
+         Verify(discoveryBehavior).Attach(testObj);
          VerifyNoMoreInteractions();
       }
 
@@ -81,6 +83,24 @@ namespace Dargon.Ipc
          var payload = CreateUntrackedMock<IEnvelope>();
          testObj.Receive(otherNode, payload);
          Verify(receivingBehavior).Receive(otherNode, payload);
+         VerifyNoMoreInteractions();
+      }
+
+      [TestMethod]
+      public void HandleRemoteNodeCreatedDelegatesToDiscoveryBehaviorComponentTest()
+      {
+         var otherNode = CreateUntrackedMock<INode>();
+         testObj.HandleRemoteNodeCreated(otherNode);
+         Verify(discoveryBehavior).HandleRemoteNodeCreated(otherNode);
+         VerifyNoMoreInteractions();
+      }
+
+      [TestMethod]
+      public void HandleRemoteNodeDestroyedDelegatesToDiscoveryBehaviorComponentTest()
+      {
+         var otherNode = CreateUntrackedMock<INode>();
+         testObj.HandleRemoteNodeDestroyed(otherNode);
+         Verify(discoveryBehavior).HandleRemoteNodeDestroyed(otherNode);
          VerifyNoMoreInteractions();
       }
 

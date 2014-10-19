@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Dargon.Ipc.Components
 {
-   public interface ConnectivityComponent : Component
+   public interface DiscoveryBehaviorComponent : Component
    {
-      
+      void HandleRemoteNodeCreated(INode node);
+      void HandleRemoteNodeDestroyed(INode node);
    }
 }

@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Component.cs" />
-    <Compile Include="Components\ConnectivityComponent.cs" />
+    <Compile Include="Components\DiscoveryBehaviorComponent.cs" />
     <Compile Include="Components\IdentityComponentImpl.cs" />
     <Compile Include="Components\IdentityComponent.cs" />
     <Compile Include="Components\PeeringBehaviorComponent.cs" />

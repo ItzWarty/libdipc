@@ -14,21 +14,24 @@ namespace Dargon.Ipc
       private readonly ReceivingBehaviorComponent receivingBehavior;
       private readonly SendingBehaviorComponent sendingBehavior;
       private readonly RoutingBehaviorComponent routingBehavior;
+      private readonly DiscoveryBehaviorComponent discoveryBehavior;
       private readonly Dictionary<Type, Component> componentsByInterface = new Dictionary<Type, Component>();
 
-      public LocalNodeImpl(IdentityComponent identity, PeeringBehaviorComponent peeringBehavior, ReceivingBehaviorComponent receivingBehavior, SendingBehaviorComponent sendingBehavior, RoutingBehaviorComponent routingBehavior)
+      public LocalNodeImpl(IdentityComponent identity, PeeringBehaviorComponent peeringBehavior, ReceivingBehaviorComponent receivingBehavior, SendingBehaviorComponent sendingBehavior, RoutingBehaviorComponent routingBehavior, DiscoveryBehaviorComponent discoveryBehavior)
       {
          this.identity = identity;
          this.peeringBehavior = peeringBehavior;
          this.receivingBehavior = receivingBehavior;
          this.sendingBehavior = sendingBehavior;
          this.routingBehavior = routingBehavior;
+         this.discoveryBehavior = discoveryBehavior;
 
          componentsByInterface.Add(typeof(IdentityComponent), identity);
          componentsByInterface.Add(typeof(PeeringBehaviorComponent), peeringBehavior);
          componentsByInterface.Add(typeof(ReceivingBehaviorComponent), receivingBehavior);
          componentsByInterface.Add(typeof(SendingBehaviorComponent), sendingBehavior);
          componentsByInterface.Add(typeof(RoutingBehaviorComponent), routingBehavior);
+         componentsByInterface.Add(typeof(DiscoveryBehaviorComponent), discoveryBehavior);
       }
 
       public void Initialize()
@@ -40,6 +43,8 @@ namespace Dargon.Ipc
 
       public Guid Guid { get { return identity.Guid; } }
       public Task<IPeeringResult> SetParent(INode node) { return peeringBehavior.PeerParentAsync(node); }
+      public void HandleRemoteNodeCreated(INode node) { discoveryBehavior.HandleRemoteNodeCreated(node); }
+      public void HandleRemoteNodeDestroyed(INode node) { discoveryBehavior.HandleRemoteNodeDestroyed(node); }
       public void Send<TPayload>(INode node, TPayload payload) where TPayload : IPortableObject { sendingBehavior.Send(node, payload); }
       public void Receive(INode sender, IEnvelope envelope) { receivingBehavior.Receive(sender, envelope); }
       public T GetComponent<T>() where T : Component { return (T)componentsByInterface.GetValueOrDefault(typeof(T)); }
