@@ -11,7 +11,7 @@ namespace Dargon.Ipc
    [TestClass]
    public class LocalNodeImplTest : NMockitoInstance
    {
-      private LocalNodeImpl testObj;
+      private LocalNodeImpl<> testObj;
 
       [Mock] private readonly IdentityComponent identityComponent = null;
       [Mock] private readonly PeeringBehaviorComponent peeringBehavior = null;
@@ -25,7 +25,7 @@ namespace Dargon.Ipc
       {
          InitializeMocks();
 
-         testObj = new LocalNodeImpl(identityComponent, peeringBehavior, receivingBehavior, sendingBehavior, routingBehavior, discoveryBehavior);
+         testObj = new LocalNodeImpl<>(identityComponent, peeringBehavior, receivingBehavior, sendingBehavior, routingBehavior, discoveryBehavior);
          VerifyNoMoreInteractions();
       }
 
@@ -91,7 +91,7 @@ namespace Dargon.Ipc
       {
          var otherNode = CreateUntrackedMock<INode>();
          testObj.HandleRemoteNodeCreated(otherNode);
-         Verify(discoveryBehavior).HandleRemoteNodeCreated(otherNode);
+         Verify(discoveryBehavior).HandleServiceList(otherNode);
          VerifyNoMoreInteractions();
       }
 
@@ -100,7 +100,7 @@ namespace Dargon.Ipc
       {
          var otherNode = CreateUntrackedMock<INode>();
          testObj.HandleRemoteNodeDestroyed(otherNode);
-         Verify(discoveryBehavior).HandleRemoteNodeDestroyed(otherNode);
+         Verify(discoveryBehavior).HandleServiceLost(otherNode);
          VerifyNoMoreInteractions();
       }
 

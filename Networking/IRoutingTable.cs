@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dargon.Ipc.Routing
+namespace Dargon.Ipc.Networking
 {
    public interface IRoutingTable
    {

@@ -1,18 +1,18 @@
-﻿using Dargon.Ipc.Routing;
+﻿using Dargon.Ipc.Networking;
 
 namespace Dargon.Ipc.Components
 {
    public class RoutingBehaviorComponentImpl : RoutingBehaviorComponent
    {
-      private readonly INetworkLayer networkLayer;
+      private readonly ITransportLayer transportLayer;
       private ILocalNodeInternal node;
 
-      public RoutingBehaviorComponentImpl(INetworkLayer networkLayer) {
-         this.networkLayer = networkLayer;
+      public RoutingBehaviorComponentImpl(ITransportLayer transportLayer) {
+         this.transportLayer = transportLayer;
       }
 
       public void Attach(ILocalNodeInternal node) { this.node = node; }
 
-      public void Route(INode sender, IEnvelope envelope) { networkLayer.Transport(node, envelope); }
+      public void Route(INode sender, IEnvelope envelope) { transportLayer.Transport(node, envelope); }
    }
 }

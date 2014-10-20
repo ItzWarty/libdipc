@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Dargon.Ipc.Networking;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NMockito;
 
 namespace Dargon.Ipc.Components
@@ -8,7 +9,7 @@ namespace Dargon.Ipc.Components
    {
       private RoutingBehaviorComponentImpl testObj;
 
-      [Mock] private readonly INetworkLayer networkLayer = null;
+      [Mock] private readonly ITransportLayer transportLayer = null;
       [Mock] private readonly ILocalNodeInternal owner = null;
 
       [TestInitialize]
@@ -16,7 +17,7 @@ namespace Dargon.Ipc.Components
       { 
          InitializeMocks();
 
-         testObj = new RoutingBehaviorComponentImpl(networkLayer);
+         testObj = new RoutingBehaviorComponentImpl(transportLayer);
       }
 
       [TestMethod]
@@ -34,7 +35,7 @@ namespace Dargon.Ipc.Components
          var node = CreateMock<INode>();
          var envelope = CreateMock<IEnvelope>();
          testObj.Route(node, envelope);
-         Verify(networkLayer, Once()).Transport(owner, envelope);
+         Verify(transportLayer, Once()).Transport(owner, envelope);
          VerifyNoMoreInteractions();
       }
    }

@@ -8,7 +8,7 @@ namespace Dargon.Ipc.Components
 {
    public interface DiscoveryBehaviorComponent : Component
    {
-      void HandleRemoteNodeCreated(INode node);
-      void HandleRemoteNodeDestroyed(INode node);
+      void HandleServiceDiscovered(INode node);
+      void HandleServiceLost(INode node);
    }
 }

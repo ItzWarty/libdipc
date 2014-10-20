@@ -43,8 +43,8 @@ namespace Dargon.Ipc
 
       public Guid Guid { get { return identity.Guid; } }
       public Task<IPeeringResult> SetParent(INode node) { return peeringBehavior.PeerParentAsync(node); }
-      public void HandleRemoteNodeCreated(INode node) { discoveryBehavior.HandleRemoteNodeCreated(node); }
-      public void HandleRemoteNodeDestroyed(INode node) { discoveryBehavior.HandleRemoteNodeDestroyed(node); }
+      public void HandleRemoteNodeCreated(INode node) { discoveryBehavior.HandleServiceList(node); }
+      public void HandleRemoteNodeDestroyed(INode node) { discoveryBehavior.HandleServiceLost(node); }
       public void Send<TPayload>(INode node, TPayload payload) where TPayload : IPortableObject { sendingBehavior.Send(node, payload); }
       public void Receive(INode sender, IEnvelope envelope) { receivingBehavior.Receive(sender, envelope); }
       public T GetComponent<T>() where T : Component { return (T)componentsByInterface.GetValueOrDefault(typeof(T)); }
