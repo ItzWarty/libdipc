@@ -3,12 +3,11 @@ using System.Threading.Tasks;
 using Dargon.Ipc.Components;
 using Dargon.PortableObjects;
 using ItzWarty;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NMockito;
+using Xunit;
 
 namespace Dargon.Ipc
 {
-   [TestClass]
    public class LocalNodeImplTest : NMockitoInstance
    {
       private LocalNodeImpl<> testObj;
@@ -20,16 +19,13 @@ namespace Dargon.Ipc
       [Mock] private readonly RoutingBehaviorComponent routingBehavior = null;
       [Mock] private readonly DiscoveryBehaviorComponent discoveryBehavior = null;
 
-      [TestInitialize]
-      public void Setup()
+      public LocalNodeImplTest()
       {
-         InitializeMocks();
-
          testObj = new LocalNodeImpl<>(identityComponent, peeringBehavior, receivingBehavior, sendingBehavior, routingBehavior, discoveryBehavior);
          VerifyNoMoreInteractions();
       }
 
-      [TestMethod]
+      [Fact]
       public void InitializeAttachesComponentsTest()
       {
          testObj.Initialize();
@@ -42,8 +38,8 @@ namespace Dargon.Ipc
          Verify(discoveryBehavior).Attach(testObj);
          VerifyNoMoreInteractions();
       }
-
-      [TestMethod]
+      
+      [Fact]
       public void GuidDelegatesToIdentityComponentTest()
       {
          var guid = Guid.NewGuid();
@@ -53,8 +49,8 @@ namespace Dargon.Ipc
          Verify(identityComponent).Guid.Wrap();
          VerifyNoMoreInteractions();
       }
-
-      [TestMethod]
+      
+      [Fact]
       public void SetParentDelegatesToPeeringBehaviorComponentTest()
       {
          var otherNode = CreateUntrackedMock<INode>();
@@ -65,8 +61,8 @@ namespace Dargon.Ipc
          Verify(peeringBehavior).PeerParentAsync(otherNode);
          VerifyNoMoreInteractions();
       }
-
-      [TestMethod]
+      
+      [Fact]
       public void SendDelegatesToSendingBehaviorComponentTest()
       {
          var otherNode = CreateUntrackedMock<INode>();
@@ -75,8 +71,8 @@ namespace Dargon.Ipc
          Verify(sendingBehavior).Send(otherNode, payload);
          VerifyNoMoreInteractions();
       }
-
-      [TestMethod]
+      
+      [Fact]
       public void ReceiveDelegatesReceivingBehaviorComponentTest()
       {
          var otherNode = CreateUntrackedMock<INode>();
@@ -86,7 +82,7 @@ namespace Dargon.Ipc
          VerifyNoMoreInteractions();
       }
 
-      [TestMethod]
+      [Fact]
       public void HandleRemoteNodeCreatedDelegatesToDiscoveryBehaviorComponentTest()
       {
          var otherNode = CreateUntrackedMock<INode>();
@@ -94,8 +90,8 @@ namespace Dargon.Ipc
          Verify(discoveryBehavior).HandleServiceList(otherNode);
          VerifyNoMoreInteractions();
       }
-
-      [TestMethod]
+      
+      [Fact]
       public void HandleRemoteNodeDestroyedDelegatesToDiscoveryBehaviorComponentTest()
       {
          var otherNode = CreateUntrackedMock<INode>();
@@ -103,8 +99,8 @@ namespace Dargon.Ipc
          Verify(discoveryBehavior).HandleServiceLost(otherNode);
          VerifyNoMoreInteractions();
       }
-
-      [TestMethod]
+      
+      [Fact]
       public void GetComponentTest()
       {
          AssertEquals(identityComponent, testObj.GetComponent<IdentityComponent>());
